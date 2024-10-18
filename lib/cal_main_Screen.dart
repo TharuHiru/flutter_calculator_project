@@ -23,6 +23,7 @@ class _MyWidgetState extends State<CalMain> {
                 child: Container(
                   alignment: Alignment.topRight,
                   padding: const EdgeInsets.all(15), //Padding around the number
+                  //Text which the value is displayed
                   child: Text(
                     "0",
                     style: const TextStyle(
