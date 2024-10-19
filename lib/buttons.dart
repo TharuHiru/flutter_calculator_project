@@ -28,4 +28,30 @@ class Buttons {
 
   static const String delete = "del";
   static const String reset = "C";
+
+  static const List<String> values = [
+    reset,
+    openBr,
+    closeBr,
+    mul,
+    sign,
+    percentage,
+    sqrt,
+    div,
+    num7,
+    num8,
+    num9,
+    sub,
+    num4,
+    num5,
+    num6,
+    add,
+    num1,
+    num2,
+    num3,
+    equal,
+    num0,
+    dot,
+    delete
+  ];
 }
