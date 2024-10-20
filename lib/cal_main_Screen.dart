@@ -42,34 +42,86 @@ class _MyWidgetState extends State<CalMain> {
 
             // Bottom box with buttons
             Container(
+              // full bottom box
               padding: paddingStyle,
               height: buttonHeight,
               width: double.infinity,
               decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 49, 48, 48),
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(30))),
-              child: const Column(
+                color: Color(0xFF212224), // bottom box color
+                borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+              ),
+              child: Column(
+                // create a column inside the box
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     // row 1
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Buttons(
-                        label: Buttons.reset,
-                        textColor: Colors.red,
-                      ),
-                      Buttons(
-                        label: Buttons.openBr,
-                        textColor: Colors.blue,
-                      ),
-                      Buttons(
-                        label: Buttons.closeBr,
-                        textColor: Colors.blue,
-                      ),
-                      Buttons(label: Buttons.mul),
-                    ],
+                    children: Buttons.row1(),
                   ),
+                  Row(
+                    // row 2
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: Buttons.row2(),
+                  ),
+                  Row(
+                    // row 3
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: Buttons.row3(),
+                  ),
+                  Row(
+                    // row 4
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: Buttons.row4(),
+                  ),
+                  Row(
+                    // row 5 and 6 is inside this row
+                    children: [
+                      Expanded(
+                        child: Column(
+                          // created a separate column inside the row
+                          children: [
+                            Row(
+                              // row 5
+                              mainAxisAlignment: MainAxisAlignment
+                                  .spaceBetween, // create space between the row
+                              children:
+                                  Buttons.row5(), // Spread buttons in row 5
+                            ),
+                            SizedBox(
+                              // to create the space between row 5 and 6
+                              height: 10,
+                            ),
+                            Row(
+                              // row 6
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children:
+                                  Buttons.row6(), // Spread buttons in row 6
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        // add this to create the size between the two rows and the equal button
+                        width: 20,
+                      ),
+                      Container(
+                        // equal button
+                        height: 160,
+                        width: 70,
+                        decoration: BoxDecoration(
+                            color: (Colors.blue),
+                            borderRadius: BorderRadius.circular(40)),
+                        child: Center(
+                          // center the value
+                          child: Text(
+                            Buttons.equal,
+                            style: TextStyle(fontSize: 32),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
                 ],
               ),
             ),
