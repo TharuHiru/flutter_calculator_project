@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Calculator App',
-      theme: ThemeData.light(), // Change Default theme into light
+      theme: ThemeData.dark(), // Change Default theme into light
       home: const CalMain(),
     );
   }
