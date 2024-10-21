@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/buttons.dart';
+import 'package:flutter_application_1/calculatorLogic.dart';
 
 class CalMain extends StatefulWidget {
   const CalMain({super.key});
@@ -9,6 +10,9 @@ class CalMain extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<CalMain> {
+  final Calculatorlogic calculator =
+      Calculatorlogic(); // Instance of calculator logic
+
   @override
   Widget build(BuildContext context) {
     final screenSize =
@@ -32,9 +36,10 @@ class _MyWidgetState extends State<CalMain> {
                   padding:
                       const EdgeInsets.all(15), // Padding around the number
                   // Text where the value is displayed
-                  child: const Text(
-                    "0",
-                    style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+                  child: Text(
+                    calculator.displayText, // value to be displayed
+                    style: const TextStyle(
+                        fontSize: 48, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -57,22 +62,22 @@ class _MyWidgetState extends State<CalMain> {
                   Row(
                     // row 1
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: Buttons.row1(),
+                    children: Buttons.row1(calculator),
                   ),
                   Row(
                     // row 2
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: Buttons.row2(),
+                    children: Buttons.row2(calculator),
                   ),
                   Row(
                     // row 3
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: Buttons.row3(),
+                    children: Buttons.row3(calculator),
                   ),
                   Row(
                     // row 4
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: Buttons.row4(),
+                    children: Buttons.row4(calculator),
                   ),
                   Row(
                     // row 5 and 6 is inside this row
@@ -85,8 +90,8 @@ class _MyWidgetState extends State<CalMain> {
                               // row 5
                               mainAxisAlignment: MainAxisAlignment
                                   .spaceBetween, // create space between the row
-                              children:
-                                  Buttons.row5(), // Spread buttons in row 5
+                              children: Buttons.row5(
+                                  calculator), // Spread buttons in row 5
                             ),
                             const SizedBox(
                               // to create the space between row 5 and 6
@@ -95,8 +100,8 @@ class _MyWidgetState extends State<CalMain> {
                             Row(
                               // row 6
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children:
-                                  Buttons.row6(), // Spread buttons in row 6
+                              children: Buttons.row6(
+                                  calculator), // Spread buttons in row 6
                             ),
                           ],
                         ),
