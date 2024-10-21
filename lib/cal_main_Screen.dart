@@ -15,7 +15,7 @@ class _MyWidgetState extends State<CalMain> {
         MediaQuery.of(context).size; // This will give the screen size
     final buttonHeight =
         screenSize.height * 2 / 3; // Calculate the size of the bottom area
-    final paddingStyle = EdgeInsets.symmetric(horizontal: 25, vertical: 30);
+    const paddingStyle = EdgeInsets.symmetric(horizontal: 25, vertical: 30);
     return Scaffold(
       // Display the calculator under the top app bar
       body: SafeArea(
@@ -88,7 +88,7 @@ class _MyWidgetState extends State<CalMain> {
                               children:
                                   Buttons.row5(), // Spread buttons in row 5
                             ),
-                            SizedBox(
+                            const SizedBox(
                               // to create the space between row 5 and 6
                               height: 10,
                             ),
@@ -112,7 +112,7 @@ class _MyWidgetState extends State<CalMain> {
                         decoration: BoxDecoration(
                             color: (Colors.blue),
                             borderRadius: BorderRadius.circular(40)),
-                        child: Center(
+                        child: const Center(
                           // center the value
                           child: Text(
                             Buttons.equal,
