@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/calculatorLogic.dart';
 
-class Buttons extends StatelessWidget {
+class Buttons extends StatefulWidget {
   // Numbers
   static const String num1 = "1";
   static const String num2 = "2";
@@ -32,38 +32,19 @@ class Buttons extends StatelessWidget {
   static const String delete = "del";
   static const String reset = "C";
 
-  const Buttons(
-      {super.key, required this.label, this.textColor = Colors.white});
+  const Buttons({
+    super.key,
+    required this.label,
+    this.textColor = Colors.white,
+  });
 
   final String label;
   final Color textColor;
-  //final VoidCallback onPressed;
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      //ontap
-      child: Material(
-        // material button
-        elevation: 3,
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(50), // round shadow
-        child: CircleAvatar(
-          backgroundColor: const Color(0xFF26282D), // Avatar color
-          radius: 36,
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: textColor, // Added white text color for better contrast
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  _ButtonsState createState() => _ButtonsState();
 
+  // Static rows for layout
   static List<Widget> row1() => [
         const Buttons(
             label: reset, textColor: Color.fromARGB(255, 164, 62, 54)),
@@ -76,7 +57,7 @@ class Buttons extends StatelessWidget {
 
   static List<Widget> row2() => [
         const Buttons(
-            label: sign, textColor: const Color.fromARGB(255, 48, 110, 160)),
+            label: sign, textColor: Color.fromARGB(255, 48, 110, 160)),
         const Buttons(
             label: percentage, textColor: Color.fromARGB(255, 48, 110, 160)),
         const Buttons(
@@ -85,57 +66,78 @@ class Buttons extends StatelessWidget {
       ];
 
   static List<Widget> row3() => [
-        const Buttons(
-          label: num7,
-        ),
-        const Buttons(
-          label: num8,
-        ),
-        const Buttons(
-          label: num9,
-        ),
-        const Buttons(
-          label: sub,
-          textColor: Color.fromARGB(255, 48, 110, 160),
-        ),
+        const Buttons(label: num7),
+        const Buttons(label: num8),
+        const Buttons(label: num9),
+        const Buttons(label: sub, textColor: Color.fromARGB(255, 48, 110, 160)),
       ];
 
   static List<Widget> row4() => [
-        const Buttons(
-          label: num4,
-        ),
-        const Buttons(
-          label: num5,
-        ),
-        const Buttons(
-          label: num6,
-        ),
-        const Buttons(
-          label: add,
-          textColor: Color.fromARGB(255, 48, 110, 160),
-        ),
+        const Buttons(label: num4),
+        const Buttons(label: num5),
+        const Buttons(label: num6),
+        const Buttons(label: add, textColor: Color.fromARGB(255, 48, 110, 160)),
       ];
 
   static List<Widget> row5() => [
-        const Buttons(
-          label: num1,
-        ),
-        const Buttons(
-          label: num2,
-        ),
-        const Buttons(
-          label: num3,
-        ),
+        const Buttons(label: num1),
+        const Buttons(label: num2),
+        const Buttons(label: num3),
       ];
 
   static List<Widget> row6() => [
-        const Buttons(
-          label: num0,
-        ),
+        const Buttons(label: num0),
         const Buttons(label: dot),
         const Buttons(
-          label: delete,
-          textColor: Color.fromARGB(255, 164, 62, 54),
-        ),
+            label: delete, textColor: Color.fromARGB(255, 164, 62, 54)),
       ];
+}
+
+class _ButtonsState extends State<Buttons> {
+  double _scale = 1.0;
+
+  void _onTapDown(TapDownDetails details) {
+    setState(() {
+      _scale = 0.9; // Shrink effect
+    });
+  }
+
+  void _onTapUp(TapUpDetails details) {
+    setState(() {
+      _scale = 1.0; // Back to original size
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: _onTapDown,
+      onTapUp: _onTapUp,
+      onTapCancel: () {
+        setState(() {
+          _scale = 1.0; // Cancel the effect
+        });
+      },
+      child: Transform.scale(
+        scale: _scale,
+        child: Material(
+          elevation: 3,
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(50),
+          child: CircleAvatar(
+            backgroundColor: const Color(0xFF26282D),
+            radius: 36,
+            child: Text(
+              widget.label,
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: widget.textColor,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
