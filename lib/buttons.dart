@@ -32,48 +32,31 @@ class Buttons extends StatelessWidget {
   static const String delete = "del";
   static const String reset = "C";
 
-  const Buttons({
-    Key? key,
-    required this.label,
-    required this.onPressed,
-    this.textColor = Colors.white,
-  }) : super(key: key);
+  const Buttons(
+      {super.key, required this.label, this.textColor = Colors.white});
 
   final String label;
   final Color textColor;
-  final VoidCallback onPressed;
+  //final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
-      splashColor: Colors.grey.withOpacity(0.5), // Splash color for feedback
-      highlightColor: Colors.grey[300], // Highlight color when pressed
-      borderRadius: BorderRadius.circular(50),
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.black,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0, 4),
-              blurRadius: 8,
-            ),
-          ],
-        ),
+      //ontap
+      child: Material(
+        // material button
+        elevation: 3,
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(50), // round shadow
         child: CircleAvatar(
-          backgroundColor: Color(0xFF26282D), // Avatar color
+          backgroundColor: const Color(0xFF26282D), // Avatar color
           radius: 36,
-          child: Center(
-            // Center the text in the CircleAvatar
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: textColor, // Added white text color for better contrast
-              ),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: textColor, // Added white text color for better contrast
             ),
           ),
         ),
@@ -81,79 +64,78 @@ class Buttons extends StatelessWidget {
     );
   }
 
-  static List<Widget> row1(Calculatorlogic calculator) => [
-        Buttons(
-            label: reset,
-            textColor: const Color.fromARGB(255, 164, 62, 54),
-            onPressed: () {
-              print("Reset button pressed");
-              calculator.onButtonPressed(reset);
-            }),
-        Buttons(
-            label: openBr,
-            textColor: const Color.fromARGB(255, 48, 110, 160),
-            onPressed: () => calculator.onButtonPressed(openBr)),
-        Buttons(
-            label: closeBr,
-            textColor: const Color.fromARGB(255, 48, 110, 160),
-            onPressed: () => calculator.onButtonPressed(closeBr)),
-        Buttons(
-            label: mul,
-            textColor: const Color.fromARGB(255, 48, 110, 160),
-            onPressed: () => calculator.onButtonPressed(mul)),
+  static List<Widget> row1() => [
+        const Buttons(
+            label: reset, textColor: Color.fromARGB(255, 164, 62, 54)),
+        const Buttons(
+            label: openBr, textColor: Color.fromARGB(255, 48, 110, 160)),
+        const Buttons(
+            label: closeBr, textColor: Color.fromARGB(255, 48, 110, 160)),
+        const Buttons(label: mul, textColor: Color.fromARGB(255, 48, 110, 160)),
       ];
 
-  static List<Widget> row2(Calculatorlogic calculator) => [
-        Buttons(
-            label: sign,
-            textColor: const Color.fromARGB(255, 48, 110, 160),
-            onPressed: () => calculator.onButtonPressed(sign)),
-        Buttons(
-            label: percentage,
-            textColor: const Color.fromARGB(255, 48, 110, 160),
-            onPressed: () => calculator.onButtonPressed(percentage)),
-        Buttons(
-            label: sqrt,
-            textColor: const Color.fromARGB(255, 48, 110, 160),
-            onPressed: () => calculator.onButtonPressed(sqrt)),
-        Buttons(
-            label: div,
-            textColor: const Color.fromARGB(255, 48, 110, 160),
-            onPressed: () => calculator.onButtonPressed(div)),
+  static List<Widget> row2() => [
+        const Buttons(
+            label: sign, textColor: const Color.fromARGB(255, 48, 110, 160)),
+        const Buttons(
+            label: percentage, textColor: Color.fromARGB(255, 48, 110, 160)),
+        const Buttons(
+            label: sqrt, textColor: Color.fromARGB(255, 48, 110, 160)),
+        const Buttons(label: div, textColor: Color.fromARGB(255, 48, 110, 160)),
       ];
 
-  static List<Widget> row3(Calculatorlogic calculator) => [
-        Buttons(label: num7, onPressed: () => calculator.onButtonPressed(num7)),
-        Buttons(label: num8, onPressed: () => calculator.onButtonPressed(num8)),
-        Buttons(label: num9, onPressed: () => calculator.onButtonPressed(num9)),
-        Buttons(
-            label: sub,
-            textColor: const Color.fromARGB(255, 48, 110, 160),
-            onPressed: () => calculator.onButtonPressed(sub)),
+  static List<Widget> row3() => [
+        const Buttons(
+          label: num7,
+        ),
+        const Buttons(
+          label: num8,
+        ),
+        const Buttons(
+          label: num9,
+        ),
+        const Buttons(
+          label: sub,
+          textColor: Color.fromARGB(255, 48, 110, 160),
+        ),
       ];
 
-  static List<Widget> row4(Calculatorlogic calculator) => [
-        Buttons(label: num4, onPressed: () => calculator.onButtonPressed(num4)),
-        Buttons(label: num5, onPressed: () => calculator.onButtonPressed(num5)),
-        Buttons(label: num6, onPressed: () => calculator.onButtonPressed(num6)),
-        Buttons(
-            label: add,
-            textColor: const Color.fromARGB(255, 48, 110, 160),
-            onPressed: () => calculator.onButtonPressed(Buttons.reset)),
+  static List<Widget> row4() => [
+        const Buttons(
+          label: num4,
+        ),
+        const Buttons(
+          label: num5,
+        ),
+        const Buttons(
+          label: num6,
+        ),
+        const Buttons(
+          label: add,
+          textColor: Color.fromARGB(255, 48, 110, 160),
+        ),
       ];
 
-  static List<Widget> row5(Calculatorlogic calculator) => [
-        Buttons(label: num1, onPressed: () => calculator.onButtonPressed(num1)),
-        Buttons(label: num2, onPressed: () => calculator.onButtonPressed(num2)),
-        Buttons(label: num3, onPressed: () => calculator.onButtonPressed(num3)),
+  static List<Widget> row5() => [
+        const Buttons(
+          label: num1,
+        ),
+        const Buttons(
+          label: num2,
+        ),
+        const Buttons(
+          label: num3,
+        ),
       ];
 
-  static List<Widget> row6(Calculatorlogic calculator) => [
-        Buttons(label: num0, onPressed: () => calculator.onButtonPressed(num0)),
-        Buttons(label: dot, onPressed: () => calculator.onButtonPressed(dot)),
-        Buttons(
-            label: delete,
-            textColor: const Color.fromARGB(255, 164, 62, 54),
-            onPressed: () => calculator.onButtonPressed(delete)),
+  static List<Widget> row6() => [
+        const Buttons(
+          label: num0,
+        ),
+        const Buttons(label: dot),
+        const Buttons(
+          label: delete,
+          textColor: Color.fromARGB(255, 164, 62, 54),
+        ),
       ];
 }

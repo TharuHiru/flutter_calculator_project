@@ -10,14 +10,13 @@ class Calculatorlogic {
       displayText = "0";
       lastOperation = "";
       operationPressed = false;
-    } else if (label == Buttons.add ||
+      // ignore: curly_braces_in_flow_control_structures
+    } else if ((label == Buttons.add ||
         label == Buttons.sub ||
         label == Buttons.mul ||
-        label == Buttons.div) {
-      if (operationPressed) return;
-      displayText += " $label "; // if an operation is pressed cant press again
-      lastOperation = label; // store the last operation
-      operationPressed = true; // set as operation is pressed
-    }
+        label == Buttons.div))
+      displayText += label; // if an operation is pressed cant press again
+    lastOperation = label; // store the last operation
+    operationPressed = true; // set as operation is pressed
   }
 }
