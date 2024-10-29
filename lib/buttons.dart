@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/calculatorLogic.dart';
 
-class Buttons extends StatefulWidget {
-  // Numbers
+class Buttons extends StatelessWidget {
   static const String num1 = "1";
   static const String num2 = "2";
   static const String num3 = "3";
@@ -14,13 +12,11 @@ class Buttons extends StatefulWidget {
   static const String num9 = "9";
   static const String num0 = "0";
 
-  // Basic operations
   static const String add = "+";
   static const String sub = "-";
   static const String mul = "×";
   static const String div = "÷";
 
-  // Others
   static const String equal = "=";
   static const String percentage = "%";
   static const String dot = ".";
@@ -32,112 +28,113 @@ class Buttons extends StatefulWidget {
   static const String delete = "del";
   static const String reset = "C";
 
+  final String label;
+  final Color textColor;
+  final Function(String) onPressed;
+
   const Buttons({
     super.key,
     required this.label,
+    required this.onPressed,
     this.textColor = Colors.white,
   });
 
-  final String label;
-  final Color textColor;
-
-  @override
-  _ButtonsState createState() => _ButtonsState();
-
-  // Static rows for layout
-  static List<Widget> row1() => [
-        const Buttons(
-            label: reset, textColor: Color.fromARGB(255, 164, 62, 54)),
-        const Buttons(
-            label: openBr, textColor: Color.fromARGB(255, 48, 110, 160)),
-        const Buttons(
-            label: closeBr, textColor: Color.fromARGB(255, 48, 110, 160)),
-        const Buttons(label: mul, textColor: Color.fromARGB(255, 48, 110, 160)),
-      ];
-
-  static List<Widget> row2() => [
-        const Buttons(
-            label: sign, textColor: Color.fromARGB(255, 48, 110, 160)),
-        const Buttons(
-            label: percentage, textColor: Color.fromARGB(255, 48, 110, 160)),
-        const Buttons(
-            label: sqrt, textColor: Color.fromARGB(255, 48, 110, 160)),
-        const Buttons(label: div, textColor: Color.fromARGB(255, 48, 110, 160)),
-      ];
-
-  static List<Widget> row3() => [
-        const Buttons(label: num7),
-        const Buttons(label: num8),
-        const Buttons(label: num9),
-        const Buttons(label: sub, textColor: Color.fromARGB(255, 48, 110, 160)),
-      ];
-
-  static List<Widget> row4() => [
-        const Buttons(label: num4),
-        const Buttons(label: num5),
-        const Buttons(label: num6),
-        const Buttons(label: add, textColor: Color.fromARGB(255, 48, 110, 160)),
-      ];
-
-  static List<Widget> row5() => [
-        const Buttons(label: num1),
-        const Buttons(label: num2),
-        const Buttons(label: num3),
-      ];
-
-  static List<Widget> row6() => [
-        const Buttons(label: num0),
-        const Buttons(label: dot),
-        const Buttons(
-            label: delete, textColor: Color.fromARGB(255, 164, 62, 54)),
-      ];
-}
-
-class _ButtonsState extends State<Buttons> {
-  double _scale = 1.0;
-
-  void _onTapDown(TapDownDetails details) {
-    setState(() {
-      _scale = 0.9; // Shrink effect
-    });
-  }
-
-  void _onTapUp(TapUpDetails details) {
-    setState(() {
-      _scale = 1.0; // Back to original size
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
-      onTapCancel: () {
-        setState(() {
-          _scale = 1.0; // Cancel the effect
-        });
-      },
-      child: Transform.scale(
-        scale: _scale,
-        child: Material(
-          elevation: 3,
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(50),
-          child: CircleAvatar(
-            backgroundColor: const Color(0xFF26282D),
-            radius: 36,
-            child: Text(
-              widget.label,
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: widget.textColor,
-              ),
+    return InkWell(
+      onTap: () => onPressed(label),
+      child: Material(
+        color: Colors.black,
+        elevation: 3,
+        borderRadius: BorderRadius.circular(50),
+        child: CircleAvatar(
+          backgroundColor: const Color(0xFF26282D),
+          radius: 36,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: textColor,
             ),
           ),
         ),
       ),
     );
   }
+
+  // Static rows for layout
+  static List<Widget> row1(Function(String) onPressed) => [
+        Buttons(
+          label: reset,
+          textColor: Color.fromARGB(255, 164, 62, 54),
+          onPressed: onPressed,
+        ),
+        Buttons(
+            label: openBr,
+            textColor: Color.fromARGB(255, 48, 110, 160),
+            onPressed: onPressed),
+        Buttons(
+            label: closeBr,
+            textColor: Color.fromARGB(255, 48, 110, 160),
+            onPressed: onPressed),
+        Buttons(
+            label: mul,
+            textColor: Color.fromARGB(255, 48, 110, 160),
+            onPressed: onPressed),
+      ];
+
+  static List<Widget> row2(Function(String) onPressed) => [
+        Buttons(
+            label: sign,
+            textColor: Color.fromARGB(255, 48, 110, 160),
+            onPressed: onPressed),
+        Buttons(
+            label: percentage,
+            textColor: Color.fromARGB(255, 48, 110, 160),
+            onPressed: onPressed),
+        Buttons(
+            label: sqrt,
+            textColor: Color.fromARGB(255, 48, 110, 160),
+            onPressed: onPressed),
+        Buttons(
+            label: div,
+            textColor: Color.fromARGB(255, 48, 110, 160),
+            onPressed: onPressed),
+      ];
+
+  static List<Widget> row3(Function(String) onPressed) => [
+        Buttons(label: num7, onPressed: onPressed),
+        Buttons(label: num8, onPressed: onPressed),
+        Buttons(label: num9, onPressed: onPressed),
+        Buttons(
+            label: sub,
+            textColor: Color.fromARGB(255, 48, 110, 160),
+            onPressed: onPressed),
+      ];
+
+  static List<Widget> row4(Function(String) onPressed) => [
+        Buttons(label: num4, onPressed: onPressed),
+        Buttons(label: num5, onPressed: onPressed),
+        Buttons(label: num6, onPressed: onPressed),
+        Buttons(
+            label: add,
+            textColor: Color.fromARGB(255, 48, 110, 160),
+            onPressed: onPressed),
+      ];
+
+  static List<Widget> row5(Function(String) onPressed) => [
+        Buttons(label: num1, onPressed: onPressed),
+        Buttons(label: num2, onPressed: onPressed),
+        Buttons(label: num3, onPressed: onPressed),
+      ];
+
+  static List<Widget> row6(Function(String) onPressed) => [
+        Buttons(label: num0, onPressed: onPressed),
+        Buttons(label: dot, onPressed: onPressed),
+        Buttons(
+            label: delete,
+            textColor: Color.fromARGB(255, 164, 62, 54),
+            onPressed: onPressed),
+      ];
 }

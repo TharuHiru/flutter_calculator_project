@@ -1,7 +1,7 @@
 import 'package:flutter_application_1/buttons.dart';
 
 class Calculatorlogic {
-  String displayText = "0"; // Current display text
+  String displayText = "8"; // Current display text
   String lastOperation = ""; // Last operation pressed
   bool operationPressed = false; // check if an operation was pressed
 
@@ -10,6 +10,7 @@ class Calculatorlogic {
       displayText = "0";
       lastOperation = "";
       operationPressed = false;
+      print("Reset button clicked");
       // ignore: curly_braces_in_flow_control_structures
     } else if ((label == Buttons.add ||
         label == Buttons.sub ||

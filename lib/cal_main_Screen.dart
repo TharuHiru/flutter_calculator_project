@@ -10,119 +10,130 @@ class CalMain extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<CalMain> {
+  String displayText = "0"; // Current display text
+  String lastOperation = ""; // Last operation pressed
+  bool operationPressed = false; // check if an operation was pressed
+
+  void onButtonPressed(String label) {
+    setState(() {
+      if (label == Buttons.reset) {
+        displayText = "0";
+        lastOperation = "";
+        operationPressed = false;
+      } else if ((label == Buttons.add ||
+          label == Buttons.sub ||
+          label == Buttons.mul ||
+          label == Buttons.div)) {
+        if (!operationPressed) {
+          displayText += label;
+          lastOperation = label;
+          operationPressed = true;
+        }
+      } else {
+        if (displayText == "0" || operationPressed) {
+          displayText = label;
+        } else {
+          displayText += label;
+        }
+        operationPressed = false;
+      }
+    });
+  }
+
+  final Calculatorlogic calculator = Calculatorlogic();
+
   @override
   Widget build(BuildContext context) {
-    final screenSize =
-        MediaQuery.of(context).size; // This will give the screen size
-    final buttonHeight =
-        screenSize.height * 2 / 3; // Calculate the size of the bottom area
+    final screenSize = MediaQuery.of(context).size;
+    final buttonHeight = screenSize.height * 2 / 3;
     const paddingStyle = EdgeInsets.symmetric(horizontal: 25, vertical: 30);
+
     return Scaffold(
-      // Display the calculator under the top app bar
       body: SafeArea(
-        bottom: false, // Don't apply SafeArea to the bottom bar
+        bottom: false,
         child: Column(
           children: [
-            // Top part with displaying math
+            // Display section
             Expanded(
               flex: 1,
               child: SingleChildScrollView(
-                // The big numbers should be scrollable
                 child: Container(
                   alignment: Alignment.topRight,
-                  padding:
-                      const EdgeInsets.all(15), // Padding around the number
-                  // Text where the value is displayed
-                  child: const Text(
-                    "0",
-                    style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+                  padding: const EdgeInsets.all(15),
+                  child: Text(
+                    displayText,
+                    style: const TextStyle(
+                        fontSize: 48, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
             ),
 
-            // Bottom box with buttons
+            // Buttons section
             Container(
-              // full bottom box
               padding: paddingStyle,
               height: buttonHeight,
               width: double.infinity,
               decoration: const BoxDecoration(
-                color: Color(0xFF212224), // bottom box color
+                color: Color(0xFF212224),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               ),
               child: Column(
-                // create a column inside the box
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
-                    // row 1
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: Buttons.row1(),
+                    children: Buttons.row1(onButtonPressed),
                   ),
                   Row(
-                    // row 2
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: Buttons.row2(),
+                    children: Buttons.row2(onButtonPressed),
                   ),
                   Row(
-                    // row 3
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: Buttons.row3(),
+                    children: Buttons.row3(onButtonPressed),
                   ),
                   Row(
-                    // row 4
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: Buttons.row4(),
+                    children: Buttons.row4(onButtonPressed),
                   ),
                   Row(
-                    // row 5 and 6 is inside this row
                     children: [
                       Expanded(
                         child: Column(
-                          // created a separate column inside the row
                           children: [
                             Row(
-                              // row 5
-                              mainAxisAlignment: MainAxisAlignment
-                                  .spaceBetween, // create space between the row
-                              children:
-                                  Buttons.row5(), // Spread buttons in row 5
-                            ),
-                            const SizedBox(
-                              // to create the space between row 5 and 6
-                              height: 10,
-                            ),
-                            Row(
-                              // row 6
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children:
-                                  Buttons.row6(), // Spread buttons in row 6
+                              children: Buttons.row5(onButtonPressed),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: Buttons.row6(onButtonPressed),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        // add this to create the size between the two rows and the equal button
-                        width: 20,
-                      ),
+                      const SizedBox(width: 20),
                       Container(
-                        // equal button
                         height: 160,
                         width: 70,
                         decoration: BoxDecoration(
-                            color: (Colors.blue),
-                            borderRadius: BorderRadius.circular(40)),
-                        child: const Center(
-                          // center the value
-                          child: Text(
-                            Buttons.equal,
-                            style: TextStyle(fontSize: 32),
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        child: GestureDetector(
+                          onTap: () => onButtonPressed(Buttons.equal),
+                          child: const Center(
+                            child: Text(
+                              Buttons.equal,
+                              style: TextStyle(fontSize: 32),
+                            ),
                           ),
                         ),
-                      )
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
