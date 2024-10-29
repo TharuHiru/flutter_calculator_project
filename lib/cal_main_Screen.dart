@@ -14,23 +14,44 @@ class _MyWidgetState extends State<CalMain> {
   String lastOperation = ""; // Last operation pressed
   bool operationPressed = false; // check if an operation was pressed
 
+  // Logic for mathematical functions display
   void onButtonPressed(String label) {
     setState(() {
       if (label == Buttons.reset) {
         displayText = "0";
         lastOperation = "";
         operationPressed = false;
+        //logic for the delete button, delete the last text
+      } else if (label == Buttons.delete) {
+        displayText = displayText.substring(0, displayText.length - 1);
+      }
+      //logic for the dot button, only one dot can be there in the
+      else if (label == Buttons.dot) {
+        if (!displayText.contains('.')) {
+          displayText += label;
+        }
       } else if ((label == Buttons.add ||
           label == Buttons.sub ||
           label == Buttons.mul ||
           label == Buttons.div)) {
+        //if no operation is pressed the mathematical function is pressed for the first time
         if (!operationPressed) {
-          displayText += label;
+          displayText += label; // add the function
+          lastOperation = label; // make the last operation as the function
+          operationPressed = true; // an operation has pressed
+        }
+        // if an operation is pressed but the last value is not an operation, then the label should displayed.
+        if (operationPressed &&
+            ((lastOperation != Buttons.add) &&
+                (lastOperation != Buttons.sub) &&
+                (lastOperation != Buttons.mul) &&
+                (lastOperation != Buttons.div))) {
+          displayText = displayText + label;
           lastOperation = label;
           operationPressed = true;
         }
       } else {
-        if (displayText == "0" || operationPressed) {
+        if (displayText == "0") {
           displayText = label;
         } else {
           displayText += label;
