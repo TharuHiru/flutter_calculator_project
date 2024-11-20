@@ -16,7 +16,7 @@ class Buttons extends StatefulWidget {
   static const String add = "+";
   static const String sub = "-";
   static const String mul = "×";
-  static const String div = "÷";
+  static const String div = "/";
 
   static const String equal = "=";
   static const String percentage = "%";
