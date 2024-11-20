@@ -180,23 +180,24 @@ class _MyWidgetState extends State<CalMain> {
                         ),
                       ),
                       const SizedBox(width: 20),
-                      Container(
-                        height: 160,
-                        width: 70,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-                        child: GestureDetector(
-                          onTap: () => onButtonPressed(Buttons.equal),
-                          child: const Center(
-                            child: Text(
-                              Buttons.equal,
-                              style: TextStyle(fontSize: 32),
+                        Material(
+                          color: Colors.blue, // Set the background color of the button
+                          borderRadius: BorderRadius.circular(40), // Match the border radius
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(40), // Ensure ripple stays within rounded corners
+                            onTap: () => onButtonPressed(Buttons.equal),
+                            splashColor: const Color.fromARGB(150, 255, 255, 255), // Set your desired splash color
+                            child: Container(
+                              height: 160,
+                              width: 70,
+                              alignment: Alignment.center,
+                              child: const Text(
+                                Buttons.equal,
+                                style: TextStyle(fontSize: 32, color: Colors.white), // Ensure text is readable
+                              ),
                             ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ],
