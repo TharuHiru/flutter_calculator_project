@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_application_1/buttons.dart';
 import 'package:math_expressions/math_expressions.dart'; // Import the package
 
@@ -6,10 +7,12 @@ class Calculatorlogic {
   String lastOperation = ""; // Last operation pressed
   bool operationPressed = false; // Check if an operation was pressed
   int openBrCount = 0; // Track the open bracket count
+  String errorMessage = "Invalid input";
 
   // Button press handling
   void onButtonPressed(String label) {
     switch (label) {
+      // check the label passed by the button
       case Buttons.reset:
         resetCalculator();
         break;
@@ -25,6 +28,8 @@ class Calculatorlogic {
       case Buttons.sqrt:
         SquareRoot();
         break;
+      case Buttons.percentage:
+        percentage();
       case Buttons.dot:
         Dot();
         break;
@@ -87,7 +92,7 @@ class Calculatorlogic {
     }
   }
 
-  // Add a dot 
+  // Add a dot
   void Dot() {
     if (!displayText.contains(Buttons.dot)) {
       displayText += Buttons.dot;
@@ -100,7 +105,8 @@ class Calculatorlogic {
       displayText += label;
       lastOperation = label;
       operationPressed = true;
-    } else if (operationPressed && !['+', '-', '*', '/'].contains(lastOperation)) {
+    } else if (operationPressed &&
+        !['+', '-', '*', '/'].contains(lastOperation)) {
       displayText += label;
       lastOperation = label;
       operationPressed = true;
@@ -121,12 +127,28 @@ class Calculatorlogic {
     operationPressed = false;
   }
 
+  // method to calculate percentage
+  void percentage() {
+  if (displayText == "" || displayText == Buttons.num0) {
+    return;
+  }
+  // Find the last number in the displayText
+  RegExp regex = RegExp(r'(\d+\.?\d*)$');
+  Match match = regex.firstMatch(displayText) as Match;
+
+  String numberStr = match.group(0)!;
+  double number = double.parse(numberStr);
+  number = number / 100;
+  displayText = displayText.substring(0, match.start) + number.toString();
+}
+
   // Evaluate the expression using math_expressions package
   void evaluateExpression() {
     try {
       Parser p = Parser();
       Expression exp = p.parse(displayText); // Parse the expression
-      double result = exp.evaluate(EvaluationType.REAL, ContextModel()); // Evaluate the expression
+      double result = exp.evaluate(
+          EvaluationType.REAL, ContextModel()); // Evaluate the expression
       displayText = result.toString(); // Update the display with the result
     } catch (e) {
       displayText = "Error"; // Handle errors in expression parsing
