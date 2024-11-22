@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/buttons.dart';
 import 'package:math_expressions/math_expressions.dart'; // Import the package
@@ -87,8 +89,10 @@ class Calculatorlogic {
   void SquareRoot() {
     if (displayText == Buttons.num0) {
       displayText = Buttons.sqrt + Buttons.openBr;
+      openBrCount++;
     } else {
       displayText += Buttons.mul + Buttons.sqrt + Buttons.openBr;
+      openBrCount++;
     }
   }
 
@@ -129,29 +133,39 @@ class Calculatorlogic {
 
   // method to calculate percentage
   void percentage() {
-  if (displayText == "" || displayText == Buttons.num0) {
-    return;
-  }
-  // Find the last number in the displayText
-  RegExp regex = RegExp(r'(\d+\.?\d*)$');
-  Match match = regex.firstMatch(displayText) as Match;
+    //do nothing when the number is 0
+    if (displayText == Buttons.num0) {
+      return;
+    }
+    // Find the last number in the displayText
+    RegExp regex = RegExp(r'(\d+\.?\d*)$');
+    Match match = regex.firstMatch(displayText) as Match;
 
-  String numberStr = match.group(0)!;
-  double number = double.parse(numberStr);
-  number = number / 100;
-  displayText = displayText.substring(0, match.start) + number.toString();
-}
+    String numberStr = match.group(0)!;
+    double number = double.parse(numberStr);
+    number = number / 100;
+    displayText = displayText.substring(0, match.start) + number.toString();
+  }
 
   // Evaluate the expression using math_expressions package
   void evaluateExpression() {
-    try {
-      Parser p = Parser();
-      Expression exp = p.parse(displayText); // Parse the expression
-      double result = exp.evaluate(
-          EvaluationType.REAL, ContextModel()); // Evaluate the expression
-      displayText = result.toString(); // Update the display with the result
-    } catch (e) {
-      displayText = "Error"; // Handle errors in expression parsing
-    }
+     try {
+    // Check for square root notation and replace it with the calculated value
+    RegExp sqrtRegex = RegExp(r'√\(([^)]+)\)');
+    displayText = displayText.replaceAllMapped(sqrtRegex, (match) {
+      String valueStr = match.group(1)!;
+      double value = double.parse(valueStr);
+      double sqrtValue = sqrt(value);
+      return sqrtValue.toString();
+    });
+
+    // Parse and evaluate the modified expression
+    Parser p = Parser();
+    Expression exp = p.parse(displayText);
+    double result = exp.evaluate(EvaluationType.REAL, ContextModel());
+    displayText = result.toString();
+  } catch (e) {
+    displayText = "Error"; // Handle errors in expression parsing
+  }
   }
 }
