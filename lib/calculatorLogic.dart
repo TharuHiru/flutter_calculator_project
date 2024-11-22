@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_application_1/buttons.dart';
 import 'package:math_expressions/math_expressions.dart'; // Import the package
 
@@ -110,7 +109,7 @@ class Calculatorlogic {
       lastOperation = label;
       operationPressed = true;
     } else if (operationPressed &&
-        !['+', '-', '*', '/'].contains(lastOperation)) {
+        !['+', '-', '×', '/'].contains(lastOperation)) {
       displayText += label;
       lastOperation = label;
       operationPressed = true;
@@ -158,6 +157,8 @@ class Calculatorlogic {
       double sqrtValue = sqrt(value);
       return sqrtValue.toString();
     });
+
+    displayText = displayText.replaceAll('×', '*');
 
     // Parse and evaluate the modified expression
     Parser p = Parser();

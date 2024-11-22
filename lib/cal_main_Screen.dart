@@ -99,8 +99,7 @@ final Calculatorlogic calculator = Calculatorlogic();
                       ),
                       const SizedBox(width: 20),
                       Material(
-                        color: Colors
-                            .blue, // Set the background color of the button
+                        color: const Color.fromARGB(255, 36, 86, 143), // Set the background color of the button
                         borderRadius: BorderRadius.circular(
                             40), // Match the border radius
                         child: InkWell(
