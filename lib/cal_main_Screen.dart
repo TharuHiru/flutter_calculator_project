@@ -24,12 +24,12 @@ class _MyWidgetState extends State<CalMain> {
   }
 final Calculatorlogic calculator = Calculatorlogic();
 
-/////////////////////////////////////////             Building the widget              ///////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////Building the widget///////////////////////////////////////////////////////////////////////////////
   @override
-  Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    final buttonHeight = screenSize.height * 2 / 3;
-    const paddingStyle = EdgeInsets.symmetric(horizontal: 25, vertical: 30);
+  Widget build(BuildContext context) { // create the main  screen
+    final screenSize = MediaQuery.of(context).size; // get the screen size
+    final buttonHeight = screenSize.height * 2 / 3; // set the button height to 2/3 of the screen height
+    const paddingStyle = EdgeInsets.symmetric(horizontal: 25, vertical: 30); 
 
     return Scaffold(
       body: SafeArea(
