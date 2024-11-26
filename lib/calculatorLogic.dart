@@ -59,6 +59,10 @@ class Calculatorlogic {
 
   // Delete the last character
   void deleteLastCharacter() {
+    RegExp regex = RegExp(r'[a-zA-Z]');
+    if (regex.hasMatch(displayText)) {
+      displayText = Buttons.num0;
+    }
     if (displayText.length == 1) {
       displayText = Buttons.num0;
     } else {
@@ -97,7 +101,11 @@ class Calculatorlogic {
 
   // Add a dot
   void Dot() {
-    if (!displayText.contains(Buttons.dot)) {
+    RegExp regex = RegExp(r'(\d+\.?\d*)$');
+    Match? match = regex.firstMatch(displayText);
+
+    // If there is no match or the last number does not contain a dot, add a dot
+    if (match == null || !match.group(0)!.contains(Buttons.dot)) {
       displayText += Buttons.dot;
     }
   }
@@ -122,9 +130,17 @@ class Calculatorlogic {
 
   // Add a number or digit
   void addNumberOrDigit(String label) {
+    RegExp regex = RegExp(r'[a-zA-Z]');
+    //if the text is 0 delete the 0 and replace the label
     if (displayText == Buttons.num0) {
       displayText = label;
-    } else {
+    } 
+    // letters means a error message. so clear the whole thing
+    else if (regex.hasMatch(displayText)) {
+      displayText = label;
+    } 
+    //else add the label to the currunt text
+    else {
       displayText += label;
     }
     operationPressed = false;
@@ -148,25 +164,33 @@ class Calculatorlogic {
 
   // Evaluate the expression using math_expressions package
   void evaluateExpression() {
-     try {
-    // Check for square root notation and replace it with the calculated value
-    RegExp sqrtRegex = RegExp(r'√\(([^)]+)\)');
-    displayText = displayText.replaceAllMapped(sqrtRegex, (match) {
-      String valueStr = match.group(1)!;
-      double value = double.parse(valueStr);
-      double sqrtValue = sqrt(value);
-      return sqrtValue.toString();
-    });
+    try {
+      // Check for square root notation and replace it with the calculated value
+      RegExp sqrtRegex = RegExp(r'√\(([^)]+)\)');
+      displayText = displayText.replaceAllMapped(sqrtRegex, (match) {
+        String valueStr = match.group(1)!;
+        double value = double.parse(valueStr);
+        double sqrtValue = sqrt(value);
+        return sqrtValue.toString();
+      });
 
-    displayText = displayText.replaceAll('×', '*');
+      displayText = displayText.replaceAll('×', '*');
 
-    // Parse and evaluate the modified expression
-    Parser p = Parser();
-    Expression exp = p.parse(displayText);
-    double result = exp.evaluate(EvaluationType.REAL, ContextModel());
-    displayText = result.toString();
-  } catch (e) {
-    displayText = "Error"; // Handle errors in expression parsing
-  }
+      // Check for division by zero
+      if (displayText.contains('/0')) {
+        displayText = "Cannot divide by zero";
+        return;
+      }
+
+      // Parse and evaluate the modified expression
+      Parser p = Parser();
+      Expression exp = p.parse(displayText);
+      double result = exp.evaluate(EvaluationType.REAL, ContextModel());
+      displayText = result.toString();
+    } on FormatException {
+      displayText = "Invalid Expression";
+    } catch (e) {
+      displayText = "Error";
+    }
   }
 }
