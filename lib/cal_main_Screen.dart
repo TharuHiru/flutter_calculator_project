@@ -28,7 +28,7 @@ final Calculatorlogic calculator = Calculatorlogic();
   @override
   Widget build(BuildContext context) { // create the main  screen
     final screenSize = MediaQuery.of(context).size; // get the screen size
-    final buttonHeight = screenSize.height * 2 / 3; // set the button height to 2/3 of the screen height
+    final buttonHeight = screenSize.height * 2 / 3; // set the button section height to 2/3 of the screen height
     const paddingStyle = EdgeInsets.symmetric(horizontal: 25, vertical: 30); 
 
     return Scaffold(
@@ -57,7 +57,7 @@ final Calculatorlogic calculator = Calculatorlogic();
               padding: paddingStyle,
               height: buttonHeight,
               width: double.infinity,
-              decoration: const BoxDecoration(
+              decoration: const BoxDecoration( 
                 color: Color(0xFF212224),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               ),
