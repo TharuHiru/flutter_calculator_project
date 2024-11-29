@@ -1,14 +1,16 @@
+//IM/2021/011 - G.W.T.Hirushani//
+
 import 'dart:math';
 import 'package:flutter_application_1/buttons.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 class Calculatorlogic {
-  String displayText = "0";
-  String lastOperation = "";
-  bool operationPressed = false;
-  int openBrCount = 0;
+  String displayText = "0"; // text displayes
+  String lastOperation = ""; // operation pressed lastly
+  bool operationPressed = false; // track if the operation is pressed
+  int openBrCount = 0; // open bracket count
   String errorMessage = "Invalid input";
-  List<String> history = [];
+  List<String> history = []; //list to save history
 
   void addToHistory(String expression, String result) {
     history.add('$expression = $result');
@@ -56,6 +58,7 @@ class Calculatorlogic {
     }
   }
 
+  // if "C" is pressed reset all
   void resetCalculator() {
     displayText = "0";
     lastOperation = "";
@@ -64,11 +67,12 @@ class Calculatorlogic {
   }
 
   void deleteLastCharacter() {
-    RegExp regex = RegExp(r'[a-zA-Z]');
+    RegExp regex = RegExp(r'[a-zA-Z]'); // If a letter is there clear the whole thing
     if (regex.hasMatch(displayText)) {
       displayText = "0";
     }
-    if (displayText.length == 1) {
+    if (displayText.length == 1) // if length is 1 add 0
+    {
       displayText = "0";
     } else {
       displayText = displayText.substring(0, displayText.length - 1);
@@ -102,6 +106,7 @@ class Calculatorlogic {
     }
   }
 
+  // each number should have only one decimal point
   void Dot() {
     RegExp regex = RegExp(r'(\d+\.?\d*)$');
     Match? match = regex.firstMatch(displayText);

@@ -58,6 +58,7 @@ class Buttons extends StatefulWidget {
             label: closeBr,
             textColor: const Color.fromARGB(255, 48, 110, 160),
             onPressed: onPressed),
+        //create the history button
         IconButton(
           icon: const Icon(
             Icons.history, // Use the history icon
@@ -130,12 +131,14 @@ class Buttons extends StatefulWidget {
 class _ButtonsState extends State<Buttons> {
   double _scale = 1.0;
 
+  //when press the button
   void _onTapDown(TapDownDetails details) {
     setState(() {
       _scale = 0.9; // Shrink effect
     });
   }
 
+//When release the button
   void _onTapUp(TapUpDetails details) {
     setState(() {
       _scale = 1.0; // Back to original size

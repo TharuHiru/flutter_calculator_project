@@ -1,3 +1,5 @@
+//IM/2021/011 - G.W.T.Hirushani//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/buttons.dart';
 import 'package:flutter_application_1/calculatorLogic.dart';
@@ -16,6 +18,8 @@ class _MyWidgetState extends State<CalMain> {
   final Calculatorlogic calculator = Calculatorlogic();
 
 /////////////////////////////////////////   Logic call   ///////////////////////////////////////////////////////////////////////////////
+ 
+ // if hisroty icon is called do the showHistory() function else do the onButtonPressed() function
   void onButtonPressed(String label) {
     if (label == 'history') {
       showHistory();
@@ -26,7 +30,7 @@ class _MyWidgetState extends State<CalMain> {
       });
     }
   }
-
+  // show the history in another page
   void showHistory() async {
     final result = await Navigator.push(
       context,
@@ -124,13 +128,13 @@ class _MyWidgetState extends State<CalMain> {
                       Material(
                         color: const Color.fromARGB(255, 36, 86, 143), // Set the background color of the button
                         borderRadius: BorderRadius.circular(
-                            40), // Match the border radius
+                            40), 
                         child: InkWell(
                           borderRadius: BorderRadius.circular(
-                              40), // Ensure ripple stays within rounded corners
+                              40), 
                           onTap: () => onButtonPressed(Buttons.equal),
                           splashColor: const Color.fromARGB(150, 255, 255,
-                              255), // Set your desired splash color
+                              255), 
                           child: Container(
                             height: 160,
                             width: 70,
@@ -140,7 +144,7 @@ class _MyWidgetState extends State<CalMain> {
                               style: TextStyle(
                                   fontSize: 32,
                                   color:
-                                      Colors.white), // Ensure text is readable
+                                      Colors.white), 
                             ),
                           ),
                         ),
