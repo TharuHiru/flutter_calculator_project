@@ -1,8 +1,7 @@
-//IM/2021/011 - G.W.T.Hirushani//
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/buttons.dart';
 import 'package:flutter_application_1/calculatorLogic.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class CalMain extends StatefulWidget {
   const CalMain({super.key});
@@ -13,9 +12,7 @@ class CalMain extends StatefulWidget {
 
 class _MyWidgetState extends State<CalMain> {
   String displayText = "0"; // Current display text
-  String lastOperation = ""; // Last operation pressed
-  bool operationPressed = false; // check if an operation was pressed
-  int openBrCount = 0; // track the open bracket count
+  final Calculatorlogic calculator = Calculatorlogic();
 
 /////////////////////////////////////////   Logic call   ///////////////////////////////////////////////////////////////////////////////
   void onButtonPressed(String label) {
@@ -24,7 +21,6 @@ class _MyWidgetState extends State<CalMain> {
       displayText = calculator.displayText;
     });
   }
-final Calculatorlogic calculator = Calculatorlogic();
 
 /////////////////////////////////////////Building the screen///////////////////////////////////////////////////////////////////////////////
   @override
@@ -45,10 +41,15 @@ final Calculatorlogic calculator = Calculatorlogic();
                 child: Container(
                   alignment: Alignment.topRight,
                   padding: const EdgeInsets.all(15),
-                  child: Text(
+                  child: AutoSizeText(
                     displayText,
                     style: const TextStyle(
-                        fontSize: 48, fontWeight: FontWeight.bold),
+                      fontSize: 48,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    minFontSize: 20,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),

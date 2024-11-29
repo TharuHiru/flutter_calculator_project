@@ -146,6 +146,10 @@ class Calculatorlogic {
     else {
       displayText += label;
     }
+    // Limit the length to 20 characters
+    if (displayText.length > 15) {
+      displayText = displayText.substring(0, 15);
+    }
     operationPressed = false;
   }
 
@@ -177,7 +181,8 @@ class Calculatorlogic {
         return sqrtValue.toString();
       });
 
-      displayText = displayText.replaceAll('×', '*'); //
+      // Replace multiplication symbol '×' with '*'
+      displayText = displayText.replaceAll('×', '*');
 
       // Check for division by zero
       if (displayText.contains('/0')) {
@@ -187,9 +192,15 @@ class Calculatorlogic {
 
       // Parse and evaluate the modified expression
       Parser p = Parser();
-      Expression exp = p.parse(displayText);
+      Expression exp = p.parse(displayText.replaceAll('\n', ''));
       double result = exp.evaluate(EvaluationType.REAL, ContextModel());
-      displayText = result.toString();
+
+      // Format the result to remove .0 if it's a whole number
+      if (result == result.toInt()) {
+        displayText = result.toInt().toString();
+      } else {
+        displayText = result.toString();
+      }
     } on FormatException {
       displayText = "Invalid Expression";
     } catch (e) {
