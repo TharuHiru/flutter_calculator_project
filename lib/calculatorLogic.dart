@@ -116,18 +116,21 @@ class Calculatorlogic {
   }
 
   void addOperation(String label) {
-    List<String> lines = displayText.split('\n');
-    String lastLine = lines.isNotEmpty ? lines.last : "";
-    if (lastLine.length >= 15) {
-      lines.add(label);
-    } else {
-      lastLine += label;
-      lines[lines.length - 1] = lastLine;
+   if (!operationPressed) {
+      displayText += label;
+      lastOperation = label;
+      operationPressed = true;
+    } else if (operationPressed &&
+        !['+', '-', '×', '/'].contains(lastOperation)) {
+      displayText += label;
+      lastOperation = label;
+      operationPressed = true;
+    } else {  displayText = displayText.substring(0, displayText.length - 1) + label;
+      lastOperation = label;
+      operationPressed = true;
     }
-    displayText = lines.join('\n');
-    lastOperation = label;
-    operationPressed = true;
   }
+
 
   void addNumberOrDigit(String label) {
     RegExp regex = RegExp(r'[a-zA-Z]');

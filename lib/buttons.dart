@@ -59,13 +59,16 @@ class Buttons extends StatefulWidget {
             textColor: const Color.fromARGB(255, 48, 110, 160),
             onPressed: onPressed),
         //create the history button
-        IconButton(
-          icon: const Icon(
-            Icons.history, // Use the history icon
-            color: Color.fromARGB(255, 255, 255, 255),
-            size: 30, // Match the color
+        Container(
+          padding: const EdgeInsets.all(14.0), // Increase the touch area
+          child: IconButton(
+            icon: const Icon(
+              Icons.history, // Use the history icon
+              color: Color.fromARGB(255, 255, 255, 255),
+              size: 30, // Match the color
+            ),
+            onPressed: () => onPressed(''), // Pass 'history' or any label
           ),
-          onPressed: () => onPressed('history'), // Pass 'history' or any label
         ),
       ];
 
