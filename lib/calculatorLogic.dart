@@ -67,7 +67,8 @@ class Calculatorlogic {
   }
 
   void deleteLastCharacter() {
-    RegExp regex = RegExp(r'[a-zA-Z]'); // If a letter is there clear the whole thing
+    RegExp regex =
+        RegExp(r'[a-zA-Z]'); // If a letter is there clear the whole thing
     if (regex.hasMatch(displayText)) {
       displayText = "0";
     }
@@ -116,7 +117,7 @@ class Calculatorlogic {
   }
 
   void addOperation(String label) {
-   if (!operationPressed) {
+    if (!operationPressed) {
       displayText += label;
       lastOperation = label;
       operationPressed = true;
@@ -125,32 +126,38 @@ class Calculatorlogic {
       displayText += label;
       lastOperation = label;
       operationPressed = true;
-    } else {  displayText = displayText.substring(0, displayText.length - 1) + label;
+    } else {
+      displayText = displayText.substring(0, displayText.length - 1) + label;
       lastOperation = label;
       operationPressed = true;
     }
   }
 
-
-  void addNumberOrDigit(String label) {
-    RegExp regex = RegExp(r'[a-zA-Z]');
-    if (displayText == Buttons.num0) {
-      displayText = label;
-    } else if (regex.hasMatch(displayText)) {
-      displayText = label;
-    } else {
-      List<String> lines = displayText.split('\n');
-      String lastLine = lines.isNotEmpty ? lines.last : "";
-      if (lastLine.length < 15) {
-        lastLine += label;
-        lines[lines.length - 1] = lastLine;
-      } else {
-        lines.add(label);
-      }
-      displayText = lines.join('\n');
-    }
-    operationPressed = false;
+  /// Add a number or digit
+void addNumberOrDigit(String label) {
+  RegExp regex = RegExp(r'[a-zA-Z]');
+  // If the text is 0, delete the 0 and replace it with the label
+  if (displayText == Buttons.num0) {
+    displayText = label;
   }
+  // Letters mean an error message, so clear the whole thing
+  else if (regex.hasMatch(displayText)) {
+    displayText = label;
+  }
+  // Else add the label to the current text
+  else {
+    // Split the displayText by operations to get the current number
+    List<String> parts = displayText.split(RegExp(r'[\+\-\×\÷]'));
+    String currentNumber = parts.isNotEmpty ? parts.last : "";
+
+    // Check if adding the number exceeds 15 characters for the current number
+    if (currentNumber.length < 15) {
+      displayText += label;
+    }
+  }
+
+  operationPressed = false;
+}
 
   void percentage() {
     if (displayText == "0") {
@@ -181,7 +188,9 @@ class Calculatorlogic {
       Parser p = Parser();
       Expression exp = p.parse(displayText.replaceAll('\n', ''));
       double result = exp.evaluate(EvaluationType.REAL, ContextModel());
-      String resultStr = result == result.toInt() ? result.toInt().toString() : result.toString();
+      String resultStr = result == result.toInt()
+          ? result.toInt().toString()
+          : result.toString();
       addToHistory(displayText, resultStr);
       displayText = resultStr;
     } on FormatException {
