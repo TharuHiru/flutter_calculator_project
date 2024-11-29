@@ -67,7 +67,7 @@ class Buttons extends StatefulWidget {
               color: Color.fromARGB(255, 255, 255, 255),
               size: 30, // Match the color
             ),
-            onPressed: () => onPressed(''), // Pass 'history' or any label
+            onPressed: () => onPressed('history'), // Pass 'history' or any label
           ),
         ),
       ];

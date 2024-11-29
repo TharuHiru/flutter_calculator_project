@@ -65,15 +65,23 @@ class _MyWidgetState extends State<CalMain> {
                 child: Container(
                   alignment: Alignment.topRight,
                   padding: const EdgeInsets.all(15),
-                  child: AutoSizeText(
-                    displayText,
-                    style: const TextStyle(
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: null, // Allow any number of lines
-                    minFontSize: 20,
-                    overflow: TextOverflow.visible, // Ensure text is visible
+                  child: LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) {
+                      return AutoSizeText(
+                        displayText,
+                        style: const TextStyle(
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 50,
+                        minFontSize: 20,
+                        overflow: TextOverflow.ellipsis,
+                        stepGranularity: 1,
+                        presetFontSizes: [48, 40, 32, 24, 20],
+                        maxFontSize: 48,
+                        wrapWords: false,
+                      );
+                    },
                   ),
                 ),
               ),
