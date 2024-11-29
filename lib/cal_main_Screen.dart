@@ -1,3 +1,5 @@
+//IM/2021/011 - G.W.T.Hirushani//
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/buttons.dart';
 import 'package:flutter_application_1/calculatorLogic.dart';
@@ -24,7 +26,7 @@ class _MyWidgetState extends State<CalMain> {
   }
 final Calculatorlogic calculator = Calculatorlogic();
 
-/////////////////////////////////////////Building the widget///////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////Building the screen///////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) { // create the main  screen
     final screenSize = MediaQuery.of(context).size; // get the screen size

@@ -1,3 +1,5 @@
+//IM/2021/011 - G.W.T.Hirushani//
+
 import 'package:flutter/material.dart';
 
 class Buttons extends StatefulWidget {
@@ -120,6 +122,7 @@ class Buttons extends StatefulWidget {
   State<Buttons> createState() => _ButtonsState();
 }
 
+// Class to create the buttons animation.
 class _ButtonsState extends State<Buttons> {
   double _scale = 1.0;
 
@@ -135,6 +138,8 @@ class _ButtonsState extends State<Buttons> {
     });
   }
 
+
+// Widget for creating the button
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

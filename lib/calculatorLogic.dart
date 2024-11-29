@@ -1,3 +1,5 @@
+//IM/2021/011 - G.W.T.Hirushani//
+
 import 'dart:math';
 
 import 'package:flutter_application_1/buttons.dart';
@@ -15,36 +17,36 @@ class Calculatorlogic {
     switch (label) {
       // check the label passed by the button
       case Buttons.reset:
-        resetCalculator();
+        resetCalculator(); //reset button
         break;
       case Buttons.delete:
-        deleteLastCharacter();
+        deleteLastCharacter(); //delete button
         break;
       case Buttons.openBr:
-        OpenBracket();
+        OpenBracket(); //open bracket button
         break;
       case Buttons.closeBr:
-        CloseBracket();
+        CloseBracket(); //close bracket button
         break;
       case Buttons.sqrt:
-        SquareRoot();
+        SquareRoot(); //calculate square root
         break;
       case Buttons.percentage:
-        percentage();
+        percentage(); //calculate percentage
       case Buttons.dot:
-        Dot();
+        Dot(); //decimal point logic
         break;
       case Buttons.add:
       case Buttons.sub:
       case Buttons.mul:
       case Buttons.div:
-        addOperation(label);
+        addOperation(label); //operation logic
         break;
       case Buttons.equal:
-        evaluateExpression();
+        evaluateExpression(); //get the result
         break;
       default:
-        addNumberOrDigit(label);
+        addNumberOrDigit(label); // display number or digit
         break;
     }
   }
@@ -78,6 +80,7 @@ class Calculatorlogic {
       displayText += "(";
     }
     openBrCount++;
+    operationPressed = false;
   }
 
   // Add close bracket
@@ -134,11 +137,11 @@ class Calculatorlogic {
     //if the text is 0 delete the 0 and replace the label
     if (displayText == Buttons.num0) {
       displayText = label;
-    } 
+    }
     // letters means a error message. so clear the whole thing
     else if (regex.hasMatch(displayText)) {
       displayText = label;
-    } 
+    }
     //else add the label to the currunt text
     else {
       displayText += label;
@@ -174,7 +177,7 @@ class Calculatorlogic {
         return sqrtValue.toString();
       });
 
-      displayText = displayText.replaceAll('×', '*');
+      displayText = displayText.replaceAll('×', '*'); //
 
       // Check for division by zero
       if (displayText.contains('/0')) {
