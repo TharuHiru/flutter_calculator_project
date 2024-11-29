@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/buttons.dart';
 import 'package:flutter_application_1/calculatorLogic.dart';
+import 'package:flutter_application_1/history_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class CalMain extends StatefulWidget {
@@ -16,10 +17,29 @@ class _MyWidgetState extends State<CalMain> {
 
 /////////////////////////////////////////   Logic call   ///////////////////////////////////////////////////////////////////////////////
   void onButtonPressed(String label) {
-    setState(() {
-      calculator.onButtonPressed(label);
-      displayText = calculator.displayText;
-    });
+    if (label == 'history') {
+      showHistory();
+    } else {
+      setState(() {
+        calculator.onButtonPressed(label);
+        displayText = calculator.displayText;
+      });
+    }
+  }
+
+  void showHistory() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HistoryScreen(history: calculator.history),
+      ),
+    );
+
+    if (result == true) {
+      setState(() {
+        calculator.clearHistory();
+      });
+    }
   }
 
 /////////////////////////////////////////Building the screen///////////////////////////////////////////////////////////////////////////////
@@ -47,9 +67,9 @@ class _MyWidgetState extends State<CalMain> {
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
                     ),
-                    maxLines: 1,
+                    maxLines: null, // Allow any number of lines
                     minFontSize: 20,
-                    overflow: TextOverflow.ellipsis,
+                    overflow: TextOverflow.visible, // Ensure text is visible
                   ),
                 ),
               ),
@@ -133,6 +153,7 @@ class _MyWidgetState extends State<CalMain> {
           ],
         ),
       ),
+      
     );
   }
 }

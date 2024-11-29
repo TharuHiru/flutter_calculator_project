@@ -58,23 +58,27 @@ class Buttons extends StatefulWidget {
             label: closeBr,
             textColor: const Color.fromARGB(255, 48, 110, 160),
             onPressed: onPressed),
-        Buttons(
-            label: mul,
-            textColor: const Color.fromARGB(255, 48, 110, 160),
-            onPressed: onPressed),
+        IconButton(
+          icon: const Icon(
+            Icons.history, // Use the history icon
+            color: Color.fromARGB(255, 255, 255, 255),
+            size: 30, // Match the color
+          ),
+          onPressed: () => onPressed('history'), // Pass 'history' or any label
+        ),
       ];
 
   static List<Widget> row2(Function(String) onPressed) => [
         Buttons(
-            label: sign,
+            label: add,
             textColor: const Color.fromARGB(255, 48, 110, 160),
             onPressed: onPressed),
         Buttons(
-            label: percentage,
+            label: sub,
             textColor: const Color.fromARGB(255, 48, 110, 160),
             onPressed: onPressed),
         Buttons(
-            label: sqrt,
+            label: mul,
             textColor: const Color.fromARGB(255, 48, 110, 160),
             onPressed: onPressed),
         Buttons(
@@ -88,7 +92,7 @@ class Buttons extends StatefulWidget {
         Buttons(label: num8, onPressed: onPressed),
         Buttons(label: num9, onPressed: onPressed),
         Buttons(
-            label: sub,
+            label: percentage,
             textColor: const Color.fromARGB(255, 48, 110, 160),
             onPressed: onPressed),
       ];
@@ -98,7 +102,7 @@ class Buttons extends StatefulWidget {
         Buttons(label: num5, onPressed: onPressed),
         Buttons(label: num6, onPressed: onPressed),
         Buttons(
-            label: add,
+            label: sqrt,
             textColor: const Color.fromARGB(255, 48, 110, 160),
             onPressed: onPressed),
       ];
@@ -137,7 +141,6 @@ class _ButtonsState extends State<Buttons> {
       _scale = 1.0; // Back to original size
     });
   }
-
 
 // Widget for creating the button
   @override
