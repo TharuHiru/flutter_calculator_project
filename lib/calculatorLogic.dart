@@ -11,6 +11,7 @@ class Calculatorlogic {
   int openBrCount = 0; // open bracket count
   String errorMessage = "Invalid input";
   List<String> history = []; //list to save history
+  bool done = false;
 
   void addToHistory(String expression, String result) {
     history.add('$expression = $result');
@@ -72,6 +73,10 @@ class Calculatorlogic {
     if (regex.hasMatch(displayText)) {
       displayText = "0";
     }
+    if(done){
+      displayText = "0";
+    }
+    else
     if (displayText.length == 1) // if length is 1 add 0
     {
       displayText = "0";
@@ -140,6 +145,10 @@ void addNumberOrDigit(String label) {
   if (displayText == Buttons.num0) {
     displayText = label;
   }
+  else if (done) {
+    displayText = label;
+    done = false;
+  }
   // Letters mean an error message, so clear the whole thing
   else if (regex.hasMatch(displayText)) {
     displayText = label;
@@ -182,6 +191,7 @@ void addNumberOrDigit(String label) {
       });
       displayText = displayText.replaceAll('×', '*');
       if (displayText.contains('/0')) {
+        addToHistory(displayText, "Cannot divide by zero");
         displayText = "Cannot divide by zero";
         return;
       }
@@ -193,9 +203,12 @@ void addNumberOrDigit(String label) {
           : result.toString();
       addToHistory(displayText, resultStr);
       displayText = resultStr;
+      done = true;
     } on FormatException {
+      addToHistory(displayText, "Invalid Expression");
       displayText = "Invalid Expression";
     } catch (e) {
+      addToHistory(displayText, "Error");
       displayText = "Error";
     }
   }

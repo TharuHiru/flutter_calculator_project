@@ -18,8 +18,8 @@ class _MyWidgetState extends State<CalMain> {
   final Calculatorlogic calculator = Calculatorlogic();
 
 /////////////////////////////////////////   Logic call   ///////////////////////////////////////////////////////////////////////////////
- 
- // if hisroty icon is called do the showHistory() function else do the onButtonPressed() function
+
+  // if hisroty icon is called do the showHistory() function else do the onButtonPressed() function
   void onButtonPressed(String label) {
     if (label == 'history') {
       showHistory();
@@ -30,6 +30,7 @@ class _MyWidgetState extends State<CalMain> {
       });
     }
   }
+
   // show the history in another page
   void showHistory() async {
     final result = await Navigator.push(
@@ -48,10 +49,13 @@ class _MyWidgetState extends State<CalMain> {
 
 /////////////////////////////////////////Building the screen///////////////////////////////////////////////////////////////////////////////
   @override
-  Widget build(BuildContext context) { // create the main  screen
+  Widget build(BuildContext context) {
+    // create the main  screen
     final screenSize = MediaQuery.of(context).size; // get the screen size
-    final buttonHeight = screenSize.height * 2 / 3; // set the button section height to 2/3 of the screen height
-    const paddingStyle = EdgeInsets.symmetric(horizontal: 25, vertical: 30); 
+    final buttonHeight = screenSize.height *
+        2 /
+        3; // set the button section height to 2/3 of the screen height
+    const paddingStyle = EdgeInsets.symmetric(horizontal: 25, vertical: 30);
 
     return Scaffold(
       body: SafeArea(
@@ -66,7 +70,8 @@ class _MyWidgetState extends State<CalMain> {
                   alignment: Alignment.topRight,
                   padding: const EdgeInsets.all(15),
                   child: LayoutBuilder(
-                    builder: (BuildContext context, BoxConstraints constraints) {
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) {
                       return AutoSizeText(
                         displayText,
                         style: const TextStyle(
@@ -77,7 +82,7 @@ class _MyWidgetState extends State<CalMain> {
                         minFontSize: 20,
                         overflow: TextOverflow.ellipsis,
                         stepGranularity: 1,
-                        presetFontSizes: [48, 40, 32, 24, 20],
+                        presetFontSizes: const [48, 40, 32, 24, 20],
                         maxFontSize: 48,
                         wrapWords: false,
                       );
@@ -92,7 +97,7 @@ class _MyWidgetState extends State<CalMain> {
               padding: paddingStyle,
               height: buttonHeight,
               width: double.infinity,
-              decoration: const BoxDecoration( 
+              decoration: const BoxDecoration(
                 color: Color(0xFF212224),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               ),
@@ -134,25 +139,21 @@ class _MyWidgetState extends State<CalMain> {
                       ),
                       const SizedBox(width: 20),
                       Material(
-                        color: const Color.fromARGB(255, 36, 86, 143), // Set the background color of the button
-                        borderRadius: BorderRadius.circular(
-                            40), 
+                        color: const Color.fromARGB(255, 36, 86,
+                            143), // Set the background color of the button
+                        borderRadius: BorderRadius.circular(40),
                         child: InkWell(
-                          borderRadius: BorderRadius.circular(
-                              40), 
+                          borderRadius: BorderRadius.circular(40),
                           onTap: () => onButtonPressed(Buttons.equal),
-                          splashColor: const Color.fromARGB(150, 255, 255,
-                              255), 
+                          splashColor: const Color.fromARGB(150, 255, 255, 255),
                           child: Container(
                             height: 160,
                             width: 70,
                             alignment: Alignment.center,
                             child: const Text(
                               Buttons.equal,
-                              style: TextStyle(
-                                  fontSize: 32,
-                                  color:
-                                      Colors.white), 
+                              style:
+                                  TextStyle(fontSize: 32, color: Colors.white),
                             ),
                           ),
                         ),
@@ -165,7 +166,6 @@ class _MyWidgetState extends State<CalMain> {
           ],
         ),
       ),
-      
     );
   }
 }

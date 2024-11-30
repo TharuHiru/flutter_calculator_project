@@ -16,7 +16,8 @@ class HistoryScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () {
-              Navigator.of(context).pop(true); // Return true to indicate clearing history
+              Navigator.of(context)
+                  .pop(true); // Return true to indicate clearing history
             },
           ),
         ],
